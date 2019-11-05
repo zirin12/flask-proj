@@ -1,0 +1,43 @@
+version: "2"
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+    depends_on:
+      - rabbit
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:management
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbitmq
+      - RABBITMQ_DEFAULT_PASS=rabbitmq
+    ports:
+      - "5673:5672"
+      - "15672:15672"
+  worker_1:
+    build:
+      context: .
+    hostname: worker_1
+    entrypoint: celery
+    command: -A workerA worker --loglevel=info -Q workerA
+    volumes:
+      - .:/code
+    links:
+      - rabbit
+    depends_on:
+      - rabbit
+  worker_2:
+    build:
+      context: .
+    hostname: worker_2
+    entrypoint: celery
+    command: -A workerB worker --loglevel=info -Q workerB
+    volumes:
+      - .:/code
+    links:
+      - rabbit
+    depends_on:
+      - rabbit
