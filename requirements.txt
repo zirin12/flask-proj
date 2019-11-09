@@ -1,3 +1,7 @@
 Flask
 amqp
 celery
+kombu==4.4.0
+redis
+Flask-SQLAlchemy
+SQLAlchemy
