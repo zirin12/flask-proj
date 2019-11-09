@@ -7,16 +7,9 @@ services:
     volumes:
       - .:/code
     depends_on:
-      - rabbit
-  rabbit:
-    hostname: rabbit
-    image: rabbitmq:management
-    environment:
-      - RABBITMQ_DEFAULT_USER=rabbitmq
-      - RABBITMQ_DEFAULT_PASS=rabbitmq
-    ports:
-      - "5673:5672"
-      - "15672:15672"
+      - redis
+  redis:
+    image: redis
   worker_1:
     build:
       context: .
@@ -26,9 +19,9 @@ services:
     volumes:
       - .:/code
     links:
-      - rabbit
+      - redis
     depends_on:
-      - rabbit
+      - redis
   worker_2:
     build:
       context: .
@@ -38,6 +31,6 @@ services:
     volumes:
       - .:/code
     links:
-      - rabbit
+      - redis
     depends_on:
-      - rabbit
+      - redis
