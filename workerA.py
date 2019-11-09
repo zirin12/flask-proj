@@ -1,8 +1,8 @@
 from celery import Celery
 
 # Celery configuration
-CELERY_BROKER_URL = 'amqp://rahul:rahul123@localhost:5672/myvhost'
-CELERY_RESULT_BACKEND = 'amqp'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
 #Initialize Celery
 celery = Celery('workerA', broker=CELERY_BROKER_URL,backend = CELERY_RESULT_BACKEND)
