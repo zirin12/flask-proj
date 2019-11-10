@@ -1,7 +1,9 @@
 Flask
 amqp
 celery
-kombu==4.4.0
+kombu==4.6.4
 redis
 Flask-SQLAlchemy
+flask-restplus
+Flask-Migrate
 SQLAlchemy
