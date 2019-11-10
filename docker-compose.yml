@@ -15,7 +15,7 @@ services:
       context: .
     hostname: worker_1
     entrypoint: celery
-    command: -A workerA worker --loglevel=info -Q workerA
+    command: -A app.workerA.celery_app worker --loglevel=info -Q workerA
     volumes:
       - .:/code
     links:
@@ -27,7 +27,7 @@ services:
       context: .
     hostname: worker_2
     entrypoint: celery
-    command: -A workerB worker --loglevel=info -Q workerB
+    command: -A app.workerB.celery_app worker --loglevel=info -Q workerB
     volumes:
       - .:/code
     links:
