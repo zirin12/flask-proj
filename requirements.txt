@@ -1,9 +1,8 @@
 Flask
-amqp
+uWSGI==2.0.17.1
 celery
 kombu==4.6.4
 redis
 Flask-SQLAlchemy
 flask-restplus
 Flask-Migrate
-SQLAlchemy
