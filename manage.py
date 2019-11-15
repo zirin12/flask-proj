@@ -1,3 +1,8 @@
+"""Flask project
+
+..moduleauthor:: Rahul P <github.com/zirin12>
+"""
+
 import os
 
 from flask_migrate import Migrate, upgrade
@@ -5,7 +10,7 @@ from flask_migrate import Migrate, upgrade
 from app import create_app, db
 from app.models import Task
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+app = create_app(os.getenv('FLASK_CONFIG') or 'default') # creates an instance for the task api to run it
 migrate = Migrate(app, db)
 
 @app.shell_context_processor
