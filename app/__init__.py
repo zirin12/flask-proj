@@ -8,6 +8,9 @@ app_name = 'FLASK_CELERY_APP'
 db = SQLAlchemy()
 
 def create_app(config_name):
+    """
+        create an app instance depending on the environment needed like development,testing,etc,.  
+    """
     app = _create_app(config_name)
 
     from .api import api

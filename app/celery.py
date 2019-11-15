@@ -1,3 +1,8 @@
+"""
+..module:: celery
+  :synopsis: Helps to create a Celery app instance with configurations which can then be imported in other modules.
+"""
+
 from celery import Celery
 
 def make_celery(app):
