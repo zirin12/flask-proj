@@ -2,7 +2,7 @@
 
 ## Flask project using celery backed distributed task queue and redis as a message broker.
 
-### Description
+## Description
 
 This project uses the flask micro web framework with flask restplus for defining rest endpoints, This flask applications acts like a celery client to submit tasks and get updates from the celery workers. Redis is used as the message broker to communicate with the workers to know their status and mediate them.
 Nginx is used a frontend reverse proxy to route requests to the uWSGI application server running the flask application.
