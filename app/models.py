@@ -12,8 +12,10 @@ class Task(db.Model):
     """Model for storing tasks."""
 
     task_id = db.Column(db.String,primary_key=True)
-    processed = db.Column(db.Boolean)
+    status = db.Column(db.String)
+    result = db.Column(db.Integer,nullable=True)
 
-    def __init__(self,task_id,processed):
+    def __init__(self,task_id,status,result=None):
         self.task_id = task_id
-        self.processed = processed
+        self.status = status
+        self.result = result

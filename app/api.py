@@ -10,6 +10,7 @@ from flask_restplus import Api, Resource, fields, abort
 from .workerA import add_task
 from .workerB import update_db
 from . import models, db
+from sqlalchemy.orm.exc import NoResultFound
 
 api = Api(
     version = '1.0',
@@ -25,7 +26,7 @@ def add_task_db(task_id):
 
         This saves the task to the task table in the database.
     """
-    task = models.Task(task_id,False)
+    task = models.Task(task_id,"PENDING")
     db.session.add(task)
     db.session.commit()
 
@@ -33,7 +34,8 @@ def add_task_db(task_id):
 
 task_response_model = api.model('task_response', {
     "task_id": fields.String(description="task_id", required=True),
-    "processed": fields.Boolean(description="task status", required=True),
+    "status": fields.String(description="task status", required=True),
+    "result": fields.Integer(description="Factorial of the number"),
 })
 
 task_request_model = api.model('task_request', {
@@ -45,6 +47,7 @@ task_request_model = api.model('task_request', {
 class TaskNew(Resource):
     @api.doc(responses={
         201: 'Task is started',
+        400: 'Validation Error',
     })
     @api.expect(task_request_model, validate=True)
     @api.marshal_with(task_response_model, code=201)
@@ -69,13 +72,15 @@ class TaskNew(Resource):
 
                 {
                     "task_id": "778adfbc-5b28-4e27-b00c-a6438e073220",
-                    "processed": false
+                    "status": "PENDING"
                 }
             
             - Expected Fail Response::
     
         """
         number = api.payload["number"]
+        if number <= 0 :
+            abort(400, "number should be greater than zero",number=number)
         # number = int(number)
         result = add_task.apply_async((number,),queue='workerA')
         task = add_task_db(result.task_id)
@@ -108,12 +113,15 @@ class TaskStatus(Resource):
 
                 {
                     "task_id": "778adfbc-5b28-4e27-b00c-a6438e073220",
-                    "processed": true
+                    "status": "SUCCESS"
                 }
 
             - Expected Fail Response::
         """
-        update_db.apply_async((task_id,),queue='workerB')
-        task = db.session.query(models.Task).filter_by(task_id = task_id).one()
+        try:
+            update_db.apply_async((task_id,),queue='workerB')
+            task = db.session.query(models.Task).filter_by(task_id = task_id).one()
+        except NoResultFound:
+            abort(400,"Given task id does not exist in database",task_id=task_id)
 
         return task,200

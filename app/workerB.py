@@ -22,5 +22,7 @@ def update_db(task_id):
     #print(res.ready())
     #if res.ready():
     task = db.session.query(Task).get(task_id)
-    task.processed = res.ready()
+    task.status = res.status
+    if res.ready() :
+        task.result = res.result
     db.session.commit()
