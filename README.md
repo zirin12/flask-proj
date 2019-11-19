@@ -62,12 +62,16 @@ Run the following commands in the project directory.
 ```
 docker-compose up -d --build
 ```
+
 This will expose the Flask application's endpoints on port 5000
+
 To add more workers:
 ```
 docker-compose up -d --scale worker=4 --no-recreate
 ```
+
 -d is to run in detached mode
+
 To shut down:
 ```
 docker-compose down
