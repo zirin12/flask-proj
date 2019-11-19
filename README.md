@@ -58,27 +58,23 @@ These instructions will get you a copy of the project up and running on your loc
 
 
 ## Build and launch using docker
+Run the following commands in the project directory.
 ```
 docker-compose up -d --build
 ```
-This will expose the Flask application's endpoints on port 5001 
+This will expose the Flask application's endpoints on port 5000
 To add more workers:
 ```
-docker-compose up -d --scale worker=5 --no-recreate
+docker-compose up -d --scale worker=4 --no-recreate
 ```
+-d is to run in detached mode
 To shut down:
 ```
 docker-compose down
 ```
 To change the endpoints, update the code in api/app.py
  
- 
-Example docker-compose config for scaling celery worker with separate code base. It uses the classical addition task as an example. flask-app and flask-celery have seperate codebase (In other words we don't need to have access to the celery task module and don't need to import the celery task in the flask app) and flask-app uses the name attribute of a task and celery.send_task to submit a job without having the access to celery workers code base.
-To run the example:
-docker-compose build
-docker-compose up -d # run in detached mode
- 
-Now load http://your-dockermachine-ip:5000/add/2/3 in browser. It should create a task and return a task id.
-To check the status of the job hit http://your-dockermachine-ip:5000/check/taskid. It should either show PENDING or the result 5.
-To monitor that the worker is working fine go to http://your-dockermachine-ip:5555.It runs a flower server. It should show one worker ready to serve.
+Now load http://your-dockermachine-ip:5000 in browser.You can see the page listing the task api and other swagger information . When you click on the task api bar you 'll see two endpoints , One for adding tasks(POST api) and the other for getting task status (GET api) .
+The POST api lets you create a task and in response after adding one you'll get the task id . This task id is then passed to the GET api for getting the task status. You might have to keep doing GET requests to know the updated status because celery tasks run in the background.
+To check the status of the job hit http://your-dockermachine-ip:5000/task/<taskid>. It should either show PENDING or SUCCESS with the result .
 To scale the workers, now run docker-compose scale worker=5. This will create 4 more containers each running a worker. http://your-dockermachine-ip:5555 should now show 5 workers waiting for some jobs!
