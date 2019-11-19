@@ -74,7 +74,10 @@ docker-compose down
 ```
 To change the endpoints, update the code in api/app.py
  
-Now load http://your-dockermachine-ip:5000 in browser.You can see the page listing the task api and other swagger information . When you click on the task api bar you 'll see two endpoints , One for adding tasks(POST api) and the other for getting task status (GET api) .
-The POST api lets you create a task and in response after adding one you'll get the task id . This task id is then passed to the GET api for getting the task status. You might have to keep doing GET requests to know the updated status because celery tasks run in the background.
-To check the status of the job hit http://your-dockermachine-ip:5000/task/<taskid>. It should either show PENDING or SUCCESS with the result .
-To scale the workers, now run docker-compose scale worker=5. This will create 4 more containers each running a worker. http://your-dockermachine-ip:5555 should now show 5 workers waiting for some jobs!
+* Now load http://your-dockermachine-ip:5000 in browser.You can see the page listing the task api and other swagger information . When you click on the task api bar you 'll see two endpoints , One for adding tasks(POST api) and the other for getting task status (GET api)
+
+* The POST api lets you create a task and in response after adding one you'll get the task id . This task id is then passed to the GET api for getting the task status. You might have to keep doing GET requests to know the updated status because celery tasks run in the background
+
+* To check the status of the job hit http://your-dockermachine-ip:5000/task/<taskid>. It should either show PENDING or SUCCESS with the result
+    
+* To scale the workers, now run docker-compose scale worker=5. This will create 4 more containers each running a worker. http://your-dockermachine-ip:5555 should now show 5 workers waiting for some jobs!
