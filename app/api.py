@@ -94,6 +94,8 @@ class TaskNew(Resource):
         result = add_task.apply_async((number,),queue='workerA')
         task = add_task_db(result.task_id)
 
+        update_db.apply_async((result.task_id,),queue='workerB')
+
         return task,201
 
 
@@ -136,7 +138,7 @@ class TaskStatus(Resource):
 
         """
         try:
-            update_db.apply_async((task_id,),queue='workerB')
+            # update_db.apply_async((task_id,),queue='workerB')
             task = db.session.query(models.Task).filter_by(task_id = task_id).one()
         except NoResultFound:
             abort(400,"Given task id does not exist in database",task_id=task_id)
