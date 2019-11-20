@@ -9,6 +9,7 @@ import os
 
 from . import create_app_celery, db
 from celery.result import AsyncResult
+from celery.states import READY_STATES
 from .celery import make_celery
 from .models import Task
 
@@ -32,8 +33,11 @@ def update_db(task_id):
     res = AsyncResult(task_id)
     #print(res.ready())
     #if res.ready():
-    task = db.session.query(Task).get(task_id)
-    task.status = res.status
-    if res.ready() :
-        task.result = res.result
-    db.session.commit()
+    if res.state in READY_STATES:
+        task = db.session.query(Task).get(task_id)
+        task.status = res.status
+        if res.ready() :
+            task.result = res.result
+        db.session.commit()
+    else:
+        update_db.apply_async(kwargs={'task_id': task_id}, countdown=20)
