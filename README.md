@@ -1,5 +1,7 @@
 # flask-proj
-
+***
+### Note : This branch was created to explore another way of calling the update task , different from the one in master branch
+***
 ## Flask project using celery backed distributed task queue and redis as a message broker.
 
 ## Description
