@@ -55,8 +55,7 @@ These instructions will get you a copy of the project up and running on your loc
 ```
     flask run
 ```
- 
-6. Alternatively instead of running the above commands , you can run the bash files in order .
+ 6. Alternatively instead of running the above commands , you can run the bash files in order .
 
 ```
     ./run-redis.sh
