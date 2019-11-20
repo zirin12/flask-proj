@@ -21,8 +21,7 @@ def update_db(task_id):
     """
         **Get the task status with task id and update in database**
 
-            This function allows users to run an update task periodically based on the 
-            timeout on the task with given task id and uses asyncresult call to know 
+            This function allows users to run an update task on the task with given task id and uses asyncresult call to know 
             the task state if it's completed or pending .Based on the present state it accordingly
             updates in database. 
 
