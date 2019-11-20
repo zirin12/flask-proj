@@ -1,6 +1,11 @@
-"""Flask project
+"""
+Flask project
 
-..moduleauthor:: Rahul P <github.com/zirin12>
+.. module:: manage
+  :synopsis: Contains the Instantiated flask app with configuration which can be used to run the app
+
+.. moduleauthor:: Rahul P <github.com/zirin12>
+
 """
 
 import os
