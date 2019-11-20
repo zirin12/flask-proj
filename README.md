@@ -53,8 +53,17 @@ These instructions will get you a copy of the project up and running on your loc
 ```
     flask run
 ```
-  
-6. Go to http://localhost:5000/ and you can see the page with the swagger documentation . Go to apis under tasks and you can see the two endpoints which you can try with inputs.
+6. Alternatively instead of running the above commands , you can run the bash files in order .
+
+```
+    ./run-redis.sh
+    ./run-workerA.sh
+    ./run-workerB.sh
+    ./run-flask.sh 
+    ./run-migrate.sh
+``` 
+
+7. Go to http://localhost:5000/ and you can see the page with the swagger documentation . Go to apis under tasks and you can see the two endpoints which you can try with inputs.
 
 
 ## Build and launch using docker
