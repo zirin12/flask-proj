@@ -61,6 +61,7 @@ These instructions will get you a copy of the project up and running on your loc
     ./run-redis.sh
     ./run-workerA.sh
     ./run-workerB.sh
+    ./env-flask.sh
     ./run-flask.sh 
     ./run-migrate.sh
 ``` 
