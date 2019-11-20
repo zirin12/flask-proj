@@ -68,7 +68,7 @@ class TaskNew(Resource):
             
             - Expected Success Response::
 
-                HTPP Status Code: 201
+                HTTP Status Code: 201
 
                 {
                     "task_id": "778adfbc-5b28-4e27-b00c-a6438e073220",
@@ -76,7 +76,16 @@ class TaskNew(Resource):
                 }
             
             - Expected Fail Response::
-    
+
+                HTTP Status Code: 400
+
+                {
+                    "errors": 
+                    {
+                        "number": "'1' is not of type 'integer'"
+                    },
+                    "message": "Input payload validation failed"
+                }
         """
         number = api.payload["number"]
         if number <= 0 :
@@ -117,6 +126,14 @@ class TaskStatus(Resource):
                 }
 
             - Expected Fail Response::
+                
+                HTTP Status Code: 400
+
+                {
+                    "task_id": "1",
+                    "message": "Given task id does not exist in database"
+                }
+
         """
         try:
             update_db.apply_async((task_id,),queue='workerB')

@@ -1,8 +1,8 @@
 """
-..module:: models
+.. module:: models
   :synopsis: Contains model of a Task Record
 
-..moduleauthor:: Rahul P <github.com/zirin12>
+.. moduleauthor:: Rahul P <github.com/zirin12>
 
 """
 from . import db

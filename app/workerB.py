@@ -2,7 +2,7 @@
 .. module:: workerB
    :synopsis: Contains the celery task which is responsible for updating the status of task in workerA in the database
 
-..moduleauthor:: Rahul P <github.com/zirin12>
+.. moduleauthor:: Rahul P <github.com/zirin12>
 """
 
 import os
@@ -18,6 +18,17 @@ celery_app = make_celery(app)
 # Celery task that gets the status of the task whose task id is given and updates the status in database
 @celery_app.task()
 def update_db(task_id):
+    """
+        **Get the task status with task id and update in database**
+
+            This function allows users to run an update task periodically based on the 
+            timeout on the task with given task id and uses asyncresult call to know 
+            the task state if it's completed or pending .Based on the present state it accordingly
+            updates in database. 
+
+            :param: task id
+            :return: Async result object
+    """
     res = AsyncResult(task_id)
     #print(res.ready())
     #if res.ready():
