@@ -62,7 +62,7 @@ These instructions will get you a copy of the project up and running on your loc
     ./run-workerA.sh
     ./run-workerB.sh
     ./env-flask.sh
-    flask run
+      flask run
     ./run-migrate.sh
 ``` 
 
