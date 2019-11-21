@@ -104,7 +104,7 @@ To take a look at the docker logs , first run the following command :
 docker-compose ps
 ```
 
-On the left column you can see the individual names of wach container
+On the left column you can see the individual names of each container
 
 To access the logs of each service , run :
 
