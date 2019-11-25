@@ -6,6 +6,7 @@
 
 """
 import os
+import time
 
 from . import create_app_celery
 from .celery import make_celery
@@ -30,4 +31,10 @@ def add_task(self,num):
     fact=1
     for i in range(1,num+1):
         fact = fact * i
+    
+    # Make the computation last for 10 seconds
+    t_end = time.time() + 10
+    while time.time() < t_end:
+      fact = fact * 1
+    
     return fact

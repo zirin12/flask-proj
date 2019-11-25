@@ -40,4 +40,4 @@ def update_db(task_id):
             task.result = res.result
         db.session.commit()
     else:
-        update_db.apply_async(kwargs={'task_id': task_id}, countdown=20)
+        update_db.apply_async((task_id,),queue='workerB', countdown=20)
