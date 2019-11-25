@@ -3,7 +3,7 @@ from http import HTTPStatus
 
 import pytest
 
-def add_task_view(session,test_client):
+def test_add_task_view(session,test_client):
     # Check for valid data if all the fields are present
     data = {"number":4}
     response = test_client.post('http://localhost:5000/api/tasks',data = json.dumps(data) ,content_type='application/json')
@@ -30,7 +30,7 @@ def add_task_view(session,test_client):
     assert len(errors.keys()) == 2
     assert response.status_code == 400
 
-def get_task_status_view(session, test_client):
+def test_get_task_status_view(session, test_client):
     # Check for valid data if all the fields are present
     data = {"number":5}
     response_post = test_client.post('http://localhost:5000/api/tasks',data = json.dumps(data) ,content_type='application/json')
