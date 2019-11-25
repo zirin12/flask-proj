@@ -94,6 +94,23 @@ To change the endpoints, update the code in api/app.py
 
 * The POST api lets you create a task and in response after adding one you'll get the task id . This task id is then passed to the GET api for getting the task status. You might have to keep doing GET requests to know the updated status because celery tasks run in the background
 
-* To check the status of the job hit http://your-dockermachine-ip:5000/task/<taskid>. It should either show PENDING or SUCCESS with the result
+* To check the status of the job hit http://your-dockermachine-ip:5000/tasks/{task_id}. It should either show PENDING or SUCCESS with the result
     
-* To scale the workers, now run docker-compose scale worker=5. This will create 4 more containers each running a worker. http://your-dockermachine-ip:5555 should now show 5 workers waiting for some jobs!
+* To scale the workers, now run docker-compose scale worker=4. This will create 4 more containers each running a worker.
+
+To take a look at the docker logs , first run the following command :
+
+```
+docker-compose ps
+```
+
+On the left column you can see the individual names of each container
+
+To access the logs of each service , run :
+
+```
+docker logs < Container name > -f --tail=50 # tail=50 gives the last 50 lines of the log
+
+````
+
+
